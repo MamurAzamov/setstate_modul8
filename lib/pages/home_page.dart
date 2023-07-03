@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -47,37 +49,48 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  void _apiPostUpdate(Post post) async {
-    setState(() {
-      isLoading = true;
-    });
-    var response = await Network.PUT(
-        Network.API_UPDATE + post.id.toString(), Network.paramsUpdate(post));
-    setState(() {
-      if (response != null) {
-        _apiPostList();
-      } else {}
-      isLoading = false;
-    });
-  }
 
 
   Future<void> createData() async {
-    const url = 'http://jsonplaceholder.typicode.com/posts'; // API manzilingizni ko'rsating
+    const url = 'http://jsonplaceholder.typicode.com/posts';
 
     final newData = {
       'title': 'Yangi sarlavha',
       'body': 'Yangi matn',
       'userId': 1,
     };
+    setState(() {
+      isLoading = true;
+    });
     final response = await Dio().post(url, data: newData);
 
     setState(() {
-      isLoading = true;
       if (response.statusCode == 201) {
         LogService.i('Malumot yaratildi');
       } else {
         LogService.e('Malumot yaratishda xatolik: ${response.statusCode}');
+      }
+      isLoading = false;
+    });
+  }
+
+  void _apiPostUpdate(Post post) async {
+    setState(() {
+      isLoading = true;
+    });
+
+    final url = 'http://jsonplaceholder.typicode.com/posts/${post.id}';
+    final response = await put(
+      Uri.parse(url),
+      body: json.encode(post.toJson()),
+      headers: {'Content-Type': 'application/json'},
+    );
+
+    setState(() {
+      if (response.statusCode == 200) {
+        LogService.i("data Updated");
+      } else {
+        LogService.e("Update error");
       }
       isLoading = false;
     });
