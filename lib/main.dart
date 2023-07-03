@@ -9,11 +9,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'GitHub Ma\'lumotlari',
+      title: 'setSTate',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyWidget(),
+      home: const HomePage(),
     );
   }
 }
