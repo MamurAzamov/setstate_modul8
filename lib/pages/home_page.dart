@@ -8,6 +8,7 @@ import 'package:setstate_modul8/services/http_service.dart';
 import 'package:setstate_modul8/services/log_service.dart';
 
 import '../model/post_model.dart';
+import 'detail_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -48,8 +49,6 @@ class _HomePageState extends State<HomePage> {
       isLoading = false;
     });
   }
-
-
 
   Future<void> createData() async {
     const url = 'http://jsonplaceholder.typicode.com/posts';
@@ -96,7 +95,6 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-
   @override
   void initState() {
     super.initState();
@@ -107,7 +105,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("setState"),
+        title: const Text("setState"),
       ),
       body: Stack(
         children: [
@@ -136,53 +134,68 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget itemOfPost(Post post) {
-    return Slidable(
-        startActionPane: ActionPane(
-          motion: const ScrollMotion(),
-          dismissible: DismissiblePane(
-            onDismissed: () {},
-          ),
-          children: [
-            SlidableAction(
-              onPressed: (BuildContext context) {
-                _apiPostUpdate(post);
-              },
-              backgroundColor: Colors.green,
-              foregroundColor: Colors.white,
-              icon: Icons.edit,
-              label: "Update",
-            )
-          ],
-        ),
-        endActionPane: ActionPane(
-          motion: const ScrollMotion(),
-          dismissible: DismissiblePane(
-            onDismissed: () {},
-          ),
-          children: [
-            SlidableAction(
-              onPressed: (BuildContext context) {
-                _apiPostDelete(post);
-              },
-              backgroundColor: Colors.red,
-              foregroundColor: Colors.white,
-              icon: Icons.delete,
-              label: "Delete",
-            )
-          ],
-        ),
-        child: Container(
-          padding: EdgeInsets.only(left: 20, right: 20, top: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    return InkWell(
+      onTap: () {
+        _openDetails(post);
+      },
+      child: Slidable(
+          startActionPane: ActionPane(
+            motion: const ScrollMotion(),
+            dismissible: DismissiblePane(
+              onDismissed: () {},
+            ),
             children: [
-              Text(post.title.toUpperCase()),
-              const SizedBox(
-                height: 5,
-              ),
-              Text(post.body),
+              SlidableAction(
+                onPressed: (BuildContext context) {
+                  _apiPostUpdate(post);
+                },
+                backgroundColor: Colors.green,
+                foregroundColor: Colors.white,
+                icon: Icons.edit,
+                label: "Update",
+              )
             ],
           ),
-        ));
+          endActionPane: ActionPane(
+            motion: const ScrollMotion(),
+            dismissible: DismissiblePane(
+              onDismissed: () {},
+            ),
+            children: [
+              SlidableAction(
+                onPressed: (BuildContext context) {
+                  _apiPostDelete(post);
+                },
+                backgroundColor: Colors.red,
+                foregroundColor: Colors.white,
+                icon: Icons.delete,
+                label: "Delete",
+              )
+            ],
+          ),
+          child: Container(
+            padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(post.title.toUpperCase()),
+                const SizedBox(
+                  height: 5,
+                ),
+                Text(post.body),
+              ],
+            ),
+          )),
+    );
+  }
+
+  Future _openDetails(Post post) async {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (BuildContext context) {
+      return DetailPage(
+        input: post,
+        key: null,
+      );
+    }));
   }
 }

@@ -11,7 +11,8 @@ class _MyWidgetState extends State<MyWidget> {
 
   void fetchData() async {
     try {
-      Response response = await Dio().get('https://api.github.com/users/MamurAzamov');
+      Response response =
+          await Dio().get('https://api.github.com/users/MamurAzamov');
       setState(() {
         userData = response.data;
       });
@@ -30,67 +31,67 @@ class _MyWidgetState extends State<MyWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('GitHub Ma\'lumotlari'),
+        title: const Text('GitHub Ma\'lumotlari'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
               'UserName: ${userData['login'] ?? ''}',
-              style: TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 20),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(
               'id: ${userData['id'] ?? ''}',
-              style: TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 20),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(
               'Name: ${userData['name'] ?? ''}',
-              style: TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 20),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(
               'E-mail: ${userData['email'] ?? ''}',
-              style: TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 20),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(
               'Location: ${userData['location'] ?? ''}',
-              style: TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 20),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(
               'followers: ${userData['followers'] ?? ''}',
-              style: TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 20),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(
               'following: ${userData['following'] ?? ''}',
-              style: TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 20),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(
               'URL: ${userData['url'] ?? ''}',
-              style: TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 20),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(
               'public_repos: ${userData['public_repos'] ?? ''}',
-              style: TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 20),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(
               'created at: ${userData['created_at'] ?? ''}',
-              style: TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 20),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(
               'updated at: ${userData['updated_at'] ?? ''}',
-              style: TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 20),
             ),
           ],
         ),
